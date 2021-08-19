@@ -678,9 +678,13 @@ int test_cloned_kernel_exec_info(cl_device_id deviceID, cl_context context,
         clSVMFree(context, svmPtr_cloneKernel_2);
 
         clSVMFree(context, pBuf);
-    }
 
-    return TEST_PASS;
+        return TEST_PASS;
+    }
+    else
+    {
+        return TEST_SKIPPED_ITSELF;
+    }
 }
 
 int test_empty_enqueue_helper(cl_command_queue queue, cl_kernel* srcKernel)
@@ -904,7 +908,7 @@ int test_clone_kernel(cl_device_id deviceID, cl_context context,
     }
 
     if (test_cloned_kernel_exec_info(deviceID, context, queue, num_elements)
-        != 0)
+        == TEST_FAIL)
     {
         test_fail("clCloneKernel test_cloned_kernel_exec_info failed.\n");
     }
