@@ -888,9 +888,13 @@ int test_cloned_kernel_svm_ptr(cl_device_id deviceID, cl_context context,
                       "retry.\n");
         }
         clSVMFree(context, svmPtr_cloneKernel_2);
-    }
 
-    return TEST_PASS;
+        return TEST_PASS;
+    }
+    else
+    {
+        return TEST_SKIPPED_ITSELF;
+    }
 }
 
 int test_clone_kernel(cl_device_id deviceID, cl_context context,
@@ -919,7 +923,8 @@ int test_clone_kernel(cl_device_id deviceID, cl_context context,
         test_fail("clCloneKernel test_cloned_kernel_empty_args failed.\n");
     }
 
-    if (test_cloned_kernel_svm_ptr(deviceID, context, queue, num_elements) != 0)
+    if (test_cloned_kernel_svm_ptr(deviceID, context, queue, num_elements)
+        == TEST_FAIL)
     {
         test_fail("clCloneKernel test_cloned_kernel_svm_ptr failed.\n");
     }
